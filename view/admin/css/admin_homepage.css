@@ -1,0 +1,43 @@
+.clear {
+    clear: both;
+}
+.input-comment-admin {
+    background-color: #e1e1f2;
+    border-color: #bcbccc;
+    border-radius: 5px;
+    font: 16px Georgia;
+    height: 100px;
+    margin-top: 10px;
+    padding: 5px;
+    width: 1120px;
+}
+.submit-comment-admin {
+    background-image: linear-gradient(#c8c8d9, #e1e1f2);
+    border-style: none;
+    border-radius: 5px;
+    font: 18px Georgia;
+    margin-top: 5px;
+    padding: 0 5px;
+    height: 35px;
+ }
+.submit-comment-admin:hover {
+    background-image: linear-gradient(#bcbccc, #D5D5E5);
+    cursor: pointer;
+}
+.submit-delete-comment {
+    background-image: linear-gradient(#c8c8d9, #e1e1f2);
+    border-style: none;
+    border-radius: 5px;
+    font: 16px Georgia;
+    float: left;
+    padding: 0 5px;
+    margin: 5px 5px 10px 0;
+    height: 25px;
+}
+.submit-delete-comment:hover {
+    background-image: linear-gradient(#bcbccc, #D5D5E5);
+    cursor: pointer;
+}
+.input-project {
+    height: 55px;
+}

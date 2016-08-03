@@ -1,0 +1,35 @@
+<div class="content-wrapper">
+    <!-- todo: реализовать вывод дополнительной информации в личном кабинете -->
+    <div class="content">
+        <?php echo 'Логин: <b>'.$_SESSION['login'].'</b><br>E-mail: <b>'.$_SESSION['entry'].'</b><br>IP-адресс: <b>'.$_SERVER['REMOTE_ADDR'].'</b><br>';
+        displayStat($dbh);?>
+   </div>
+
+<?php
+if(DB::countRowsWhere($dbh, 'comments', 'user', $_SESSION['login']) == 0) {
+    echo '<div class="content">У вас нет комментариев</div>';
+} else {
+$total = count($sth);
+$counter = 0;
+foreach($sth as $key => $value) {
+    echo '<div class="content"><b>'.
+        $sth[$key]['user'].'</b><br>'.
+        $sth[$key]['text'].'<span class="date-comment">'.
+        $sth[$key]['date'].'</span></div>';
+    $counter++;
+
+    if($counter < $total) {
+    echo '<div class="d"></div>';
+    } else {
+        // Если последняя запись на данной странице, то вывод разделителя не осуществляется
+    }
+}
+}
+unset($value);
+?>
+
+</div>
+<div class="pag-wrapper">
+    <?php pagination($pages, 'account');?>
+</div>
+</div>

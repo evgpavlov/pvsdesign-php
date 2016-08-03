@@ -1,0 +1,64 @@
+<div class="content-wrapper">
+
+<form enctype="multipart/form-data" action="" method="post">
+<?php
+// Если была нажата кнопка "Редактировать", то создаем скрытое поле с id записи, которую необходимо изменить
+if(isset($_POST['edit'])) {
+    echo '<input type="hidden" name="editID" value="'.$sthEdit[0]['id'].'">
+        <textarea class="input-comment-admin input-project" maxlength="1200" name="updateCode" placeholder="Шифр">'.$sthEdit[0]['code'].'</textarea>
+        <textarea class="input-comment-admin input-project" maxlength="1200" name="addName" placeholder="Рабочий проект (наименование)">'.$sthEdit[0]['name'].'</textarea>
+        <textarea class="input-comment-admin input-project" maxlength="1200" name="addAddress" placeholder="Адрес объекта">'.$sthEdit[0]['address'].'</textarea>
+        <textarea class="input-comment-admin input-project" maxlength="1200" name="addCustomer" placeholder="Заказчик">'.$sthEdit[0]['customer'].'</textarea>
+        <input type="hidden" name="MAX_FILE_SIZE" value="90000">
+        <input type="hidden" name="filename" value="'.$sthEdit[0]['filename'].'">
+        <input name="userfile" type="file">
+        <input class="submit-comment-admin" type="submit" name="sendcomment" value="Изменить данные">
+        <a class="ref" href="/projects"><input class="submit-comment-admin" type="button" name="reset" value="Отменить"></a>';
+} else { // В противном случае выполняем вывод формы для добавления новости
+    echo '<textarea class="input-comment-admin input-project" maxlength="1200" name="addCode" placeholder="Шифр"></textarea>
+        <textarea class="input-comment-admin input-project" maxlength="1200" name="addName" placeholder="Рабочий проект (наименование)"></textarea>
+        <textarea class="input-comment-admin input-project" maxlength="1200" name="addAddress" placeholder="Адрес объекта"></textarea>
+        <textarea class="input-comment-admin input-project" maxlength="1200" name="addCustomer" placeholder="Заказчик"></textarea>
+        <input type="hidden" name="MAX_FILE_SIZE" value="90000">
+        <input name="userfile" type="file" />
+        <input class="submit-comment-admin" type="submit" name="send" value="Добавить проект">';
+}?>
+</form>
+
+<?php
+$total = count($sth);
+$counter = 0;
+foreach($sth as $key => $value) {
+    echo '<div class="content">'.
+    'Шифр: <a class="ref black" href="./files/projects/'.$sth[$key]['filename'].'">'.$sth[$key]['code'].' (Скачать)</a></br>'.
+    'Рабочий проект: '.$sth[$key]['name'].'<br>'.
+    'Адрес объекта: '.$sth[$key]['address'].'<br>'.
+    'Заказчик: '.$sth[$key]['customer'].'<br>';
+
+    // Для идентификации записей создаем скрытые поля с id каждого проекта
+    echo '<form action="" method="post">
+        <input type="hidden" name="delete" value="'.$sth[$key]['id'].'">
+        <input class="submit-delete-comment" type="submit" name="deletecomment" value="Удалить">
+        </form>';
+    echo '<form action="" method="post">
+        <input type="hidden" name="edit" value="'.$sth[$key]['id'].'">
+        <input class="submit-delete-comment" type="submit" name="editcomment" value="Редактировать">
+        </form></div>';
+
+    $counter++;
+
+    echo '<div class="clear"></div>';
+
+    if($counter < $total) {
+        echo '<div class="d"></div>';
+    } else {
+    // Если последняя запись на данной странице, то вывод разделителя не осуществляется
+    }
+}
+unset($value);
+?>
+
+</div>
+<div class="pag-wrapper">
+    <?php pagination($pages, 'projects');?>
+</div>

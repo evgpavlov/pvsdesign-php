@@ -1,0 +1,24 @@
+<div class="content-wrapper">
+
+<?php
+$total = count($sth);
+$counter = 0;
+foreach($sth as $key => $value) {
+    echo '<div class="content"><span class="date">'.
+        $sth[$key]['date'].'</span>'.
+        $sth[$key]['text'].'</div>';
+    $counter++;
+
+    if($counter < $total) {
+    echo '<div class="d"></div>';
+    } else {
+    // Если последняя запись на данной странице, то вывод разделителя не осуществляется
+    }
+}
+unset($value);
+?>
+
+</div>
+<div class="pag-wrapper">
+    <?php pagination($pages, 'homepage');?>
+</div>

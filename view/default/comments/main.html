@@ -1,0 +1,43 @@
+<div class="content-wrapper">
+
+<?php
+if(!DB::countRows($dbh, 'comments')) {
+    echo '<div class="content">На данный момент комментариев нет</div>';
+} else {
+$total = count($sth);
+$counter = 0;
+foreach($sth as $key => $value) {
+    echo '<div class="content"><b>'.
+    $sth[$key]['user'].'</b><br>'.
+    $sth[$key]['text'].'<span class="date-comment">'.
+    $sth[$key]['date'].'</span></div>';
+    $counter++;
+
+    if($counter < $total) {
+    echo '<div class="d"></div>';
+    } else {
+    // Если последняя запись, то вывод разделителя не осуществляется
+    }
+}
+}
+unset($value);
+?>
+
+</div>
+<div class="pag-wrapper">
+    <?php pagination($pages, 'comments'); ?>
+</div>
+
+<!-- todo: реализовать проверку корректности комментария -->
+<?php
+if($error) { ?>
+<div class="reginfo">Ваш комментарий либо содержит менее 10 символов, либо имеет некорректную форму</div>
+<?php }
+if(isset($_SESSION['login'])) {?>
+<form action="" method="post">
+    <textarea class="input-comment input-shift" maxlength="1200" name="comment"></textarea>
+    <input class="input-wrapper input-submit-comment" type="submit" name="sendcomment" value="Оставить комментарий">
+</form>
+<?php } else { ?>
+<div class="reginfo">Для того чтобы оставлять комментарии, зарегистрируйтесь</div>
+<?php } ?>
